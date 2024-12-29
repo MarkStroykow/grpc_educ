@@ -1,0 +1,29 @@
+services:
+  main:
+    depends_on:
+      user:
+        condition: service_started
+      messages:
+        condition: service_started
+    build:
+      context: ./shop
+      dockerfile: ./build/Dockerfile
+    restart: always
+    environment:
+      - USER_SERVICE_HOST=""
+      - MESSAGE_SERVICE_HOST=""
+  user:
+    build:
+      context: ./user
+      dockerfile: ./build/Dockerfile
+    restart: always
+    ports:
+      - "50051:50051"
+
+  messages:
+    build:
+      context: ./messages
+      dockerfile: ./build/Dockerfile
+    restart: always
+    ports:
+      - "50052:50052"

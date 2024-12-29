@@ -1,0 +1,14 @@
+syntax = "proto3";
+
+option go_package = "github.com/example/proto";
+
+service MessageService {
+    rpc SendMessage(CreateMessage) returns (MessageResponce);
+}
+message CreateMessage {
+    string text = 1;
+    string number = 2;
+}
+message MessageResponce {
+    bool ok = 1;
+}
